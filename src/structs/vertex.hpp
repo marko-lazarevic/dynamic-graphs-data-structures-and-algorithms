@@ -1,5 +1,4 @@
-#ifndef __VERTEX_HPP__
-#define __VERTEX_HPP__ 
+#pragma once
 
 #include <vector>
 #include <string>
@@ -12,7 +11,6 @@ enum HashValue {
 };
 
 struct HashEntry {
-    // either index in neighbors or hash_value can be used to determine if the entry is empty or deleted or occupied
     int index;
     HashValue hash_value;
 
@@ -39,11 +37,14 @@ public:
 
     void AddNeighbor(int neighbor_id, int weight = 1);
     void ChangeWeight(int neighbor_id, int new_weight);
-    void RemoveNeighbor(int neighbor_id);
+    void RemoveNeighbor(int neighbor_id, bool preserve_order = false);
     std::vector<Neighbor>::const_iterator NeighbourIterator() const;
+    std::vector<Neighbor>::const_iterator NeighbourEndIterator() const;
     bool IsNeighbor(int neighbor_id) const;
     int GetWeight(int neighbor_id) const;
     void SortEdges();
+    void SetId(int new_id);
+    void RemapNeighborIdsAfterVertexRemoval(int removed_vertex_id);
 
 private:
     int id;
@@ -51,7 +52,10 @@ private:
     int beta;
     std::vector<Neighbor> neighbors;
     std::vector<HashEntry> hashes;
+
+    int FindSlot(int neighbor_id) const;
+    int FindInsertSlot(int neighbor_id, bool& already_present) const;
+    int HashToSlot(int neighbor_id) const;
+    void RebuildHashIndex();
+    void GrowAndRehash();
 };
-
-
-#endif // __VERTEX_HPP__
