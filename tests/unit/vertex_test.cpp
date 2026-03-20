@@ -4,7 +4,7 @@
 #include "../../src/structs/graph.hpp"
 
 TEST_CASE("AddNeighbor stores id/weight and increments degree") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(2, 5);
 
 	REQUIRE(v.Degree() == 1);
@@ -13,7 +13,7 @@ TEST_CASE("AddNeighbor stores id/weight and increments degree") {
 }
 
 TEST_CASE("ChangeWeight updates GetWeight") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(2, 3);
 	v.ChangeWeight(2, 7);
 
@@ -21,7 +21,7 @@ TEST_CASE("ChangeWeight updates GetWeight") {
 }
 
 TEST_CASE("RemoveNeighbor clears mapping and keeps remaining neighbor") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(2, 1);
 	v.AddNeighbor(3, 2);
 
@@ -34,7 +34,7 @@ TEST_CASE("RemoveNeighbor clears mapping and keeps remaining neighbor") {
 }
 
 TEST_CASE("SortEdges orders neighbors and rebuilds hashes") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(2, 4);
 	v.AddNeighbor(3, 10);
 	v.AddNeighbor(4, 1);
@@ -55,7 +55,7 @@ TEST_CASE("SortEdges orders neighbors and rebuilds hashes") {
 }
 
 TEST_CASE("Resize keeps neighbors reachable") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(2, 1);
 	v.AddNeighbor(3, 2);
 	v.AddNeighbor(4, 1);
@@ -69,7 +69,7 @@ TEST_CASE("Resize keeps neighbors reachable") {
 }
 
 TEST_CASE("Duplicate insertion is ignored") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(2, 1);
 	v.AddNeighbor(2, 99);
 
@@ -79,7 +79,7 @@ TEST_CASE("Duplicate insertion is ignored") {
 }
 
 TEST_CASE("Neighbour iterators span exactly degree entries") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(5, 1);
 	v.AddNeighbor(7, 2);
 	v.AddNeighbor(9, 3);
@@ -93,7 +93,7 @@ TEST_CASE("Neighbour iterators span exactly degree entries") {
 }
 
 TEST_CASE("RemoveNeighbor can preserve order") {
-	Vertex v(1);
+	dg::Vertex v(1);
 	v.AddNeighbor(2, 1);
 	v.AddNeighbor(3, 2);
 	v.AddNeighbor(4, 3);
@@ -110,7 +110,7 @@ TEST_CASE("RemoveNeighbor can preserve order") {
 }
 
 TEST_CASE("Lots of neighbors") {
-    Vertex v(1);
+    dg::Vertex v(1);
     for (int i = 2; i < 20; i++) {
         v.AddNeighbor(i, i * 10);
     }
@@ -123,7 +123,7 @@ TEST_CASE("Lots of neighbors") {
 }
 
 TEST_CASE("RemoveVertex removes incoming and reindexes IDs") {
-	Graph g;
+	dg::Graph g;
 	g.AddVertex(); // 0
 	g.AddVertex(); // 1
 	g.AddVertex(); // 2
