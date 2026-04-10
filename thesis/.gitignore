@@ -39,9 +39,6 @@
 *.thm
 *.loa
 
-# Generated output
-*.pdf
-
 # Minted/Pygments cache
 _minted*
 
