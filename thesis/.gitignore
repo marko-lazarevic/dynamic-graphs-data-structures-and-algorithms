@@ -1,0 +1,52 @@
+# LaTeX core
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.xdv
+
+# Bibliography (BibTeX/Biber)
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+
+# Index / glossary / nomenclature
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.idx
+*.ilg
+*.ind
+*.ist
+*.nlo
+*.nls
+
+# Beamer / theorem / lists
+*.nav
+*.snm
+*.vrb
+*.thm
+*.loa
+
+# Generated output
+*.pdf
+
+# Minted/Pygments cache
+_minted*
+
+# Editor/OS temporary files
+*.swp
+*.swo
+*~
+.DS_Store

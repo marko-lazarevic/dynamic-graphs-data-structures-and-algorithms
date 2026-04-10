@@ -1,0 +1,173 @@
+% Format teze zasnovan je na paketu memoir
+% http://tug.ctan.org/macros/latex/contrib/memoir/memman.pdf ili
+% http://texdoc.net/texmf-dist/doc/latex/memoir/memman.pdf
+% 
+% Prilikom zadavanja klase memoir, navedenim opcijama se podešava 
+% veličina slova (12pt) i jednostrano štampanje (oneside).
+% Ove parametre možete menjati samo ako pravite nezvanične verzije
+% mastera za privatnu upotrebu (na primer, u b5 varijanti ima smisla 
+% smanjiti 
+\documentclass[12pt,oneside]{memoir}
+
+% Paket koji definiše sve specifičnosti mastera Matematičkog fakulteta
+\usepackage{matfmaster}
+%
+% Podrazumevano pismo je ćirilica.
+%   Ako koristite pdflatex, a ne xetex, sav latinički tekst na srpskom jeziku
+%   treba biti okružen sa \lat{...} ili \begin{latinica}...\end{latinica}.
+%
+% Opicija [latinica]:
+%   ako želite da pišete latiniciom, dodajte opciju "latinica" tj.
+%   prethodni paket uključite pomoću: \usepackage[latinica]{matfmaster}.
+%   Ako koristite pdflatex, a ne xetex, sav ćirilički tekst treba biti
+%   okružen sa \cir{...} ili \begin{cirilica}...\end{cirilica}.
+%
+% Opcija [biblatex]:
+%   ako želite da koristite reference na više jezika i umesto paketa
+%   bibtex da koristite BibLaTeX/Biber, dodajte opciju "biblatex" tj.
+%   prethodni paket uključite pomoću: \usepackage[biblatex]{matfmaster}
+%
+% Opcija [b5paper]:
+%   ako želite da napravite verziju teze u manjem (b5) formatu, navedite
+%   opciju "b5paper", tj. prethodni paket uključite pomoću: 
+%   \usepackage[b5paper]{matfmaster}. Tada ima smisla razmisliti o promeni
+%   veličine slova (izmenom opcije 12pt na 11pt u \documentclass{memoir}).
+%
+% Naravno, opcije je moguće kombinovati.
+% Npr. \usepackage[b5paper,biblatex]{matfmaster}
+
+
+% Paket koji obezbeđuje ispravni prikaz ćiriličkih italik slova kada
+% se koristi pdflatex. Zakomentarisati ako na sistemu koji koristite ovaj
+% paket nije dostupan ili ako ne radi ispravno.
+\usepackage{cmsrb}
+
+% Ostali paketi koji se koriste u dokumentu
+\usepackage{listings} % listing programskog koda
+\usepackage[pdf]{graphviz} % crtanje grafova (pdflatex kompatibilno)
+
+\newcommand{\graphstyle}{
+    node [shape=circle, style="", fontname="Helvetica"];
+    edge [color=black, penwidth=1.5];
+}
+
+% Kompatibilnost: omogucava \begin{english} ... \end{english}
+% i kada english okruzenje nije unapred definisano.
+\makeatletter
+\@ifundefined{english}{%
+  \newenvironment{english}{\begin{otherlanguage}{english}}{\end{otherlanguage}}%
+}{}
+\makeatother
+
+% Datoteka sa literaturom u BibTex tj. BibLaTeX/Biber formatu
+\bib{master_marko_lazarevic}
+
+% Ime kandidata na srpskom jeziku (u odabranom pismu)
+\autor{Марко Г. Лазаревић}
+% Naslov teze na srpskom jeziku (u odabranom pismu)
+\naslov{Ефикасни алгоритми за динамичке графове засновани на хeш-индексираним блоковима суседства}
+% Godina u kojoj je teza predana komisiji
+\godina{2026}
+% Ime i afilijacija mentora (u odabranom pismu)
+\mentor{др Весна \textsc{Маринковић}, ванредни професор\\ Универзитет у Београду, Математички факултет}
+% Ime i afilijacija prvog člana komisije (u odabranom pismu)
+\komisijaA{др Данијела \textsc{Симић}, доцент\\ Универзитет у Београду, Математички факултет}
+% Ime i afilijacija drugog člana komisije (u odabranom pismu)
+\komisijaB{др Мирко \textsc{Спасић}, доцент\\ Универзитет у Београду, Математички факултет}
+% Ime i afilijacija trećeg člana komisije (opciono)
+% \komisijaC{}
+% Ime i afilijacija četvrtog člana komisije (opciono)
+% \komisijaD{}
+% Datum odbrane (obrisati ili iskomentarisati narednu liniju ako datum odbrane nije poznat)
+\datumodbrane{}
+
+% Apstrakt na srpskom jeziku (u odabranom pismu)
+\apstr{%
+Резиме
+}
+
+% Ključne reči na srpskom jeziku (u odabranom pismu)
+\kljucnereci{графови}
+
+\begin{document}
+% ==============================================================================
+% Uvodni deo teze
+\frontmatter
+% ==============================================================================
+% Naslovna strana
+\naslovna
+% Strana sa podacima o mentoru i članovima komisije
+\komisija
+% Strana sa posvetom (u odabranom pismu)
+\posveta{}
+% Strana sa podacima o disertaciji na srpskom jeziku
+\apstrakt{Динамички графови.}
+% Sadržaj teze
+\tableofcontents*
+
+% ==============================================================================
+% Glavni deo teze
+\mainmatter
+% ==============================================================================
+
+% 1. Uvod
+% 2. Motivacija – analiza potrebe za dinamičkim grafovima i njihova primena
+% 3. Staticki i dinamički grafovi – uvod u statičke grafove, zatim opis različitih tipova dinamičkih grafova (promene grana, čvorova, brisanje, modifikacije)
+% 4. Implementacija korišćenjem Dynamic Hashed Blocks (DHB) – opis i značaj DHB strukture, primena na tipove dinamičkih grafova, opis moje implementacije
+% 5. Algoritmi – definisanje i opis nekoliko algoritama nad dinamičkim grafovima sa implementacijom
+% 6. Primene dinamičkih grafova kroz primere – rutiranje paketa, saobraćaj, neuronske mreže, društvene mreže i slično
+% 7. Zaključak
+
+% ------------------------------------------------------------------------------
+\chapter{Увод}
+% ------------------------------------------------------------------------------
+
+У поглављу \ref{chp:motivacija} биће представљена мотивација за избор теме о динамичким графовима, као и њихова примена у различитим областима. У поглављу \ref{chp:staticki_i_dinamicki_grafovi} биће објашњени основни појмови везани за статичке и динамичке графове, као и различити типови динамичких графова. 
+
+% ------------------------------------------------------------------------------
+\chapter{Мотивација}
+\label{chp:motivacija}
+\input{chapters/motivacija.tex}
+% ------------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------------
+\chapter{Статички и динамички графови}
+% ------------------------------------------------------------------------------
+
+\label{chp:staticki_i_dinamicki_grafovi}
+\input{chapters/staticki_i_dimanicki_grafovi.tex}
+% ------------------------------------------------------------------------------
+\chapter{Имплементација коришћењем Dynamic Hashed Blocks (DHB)}
+% ------------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------------
+\chapter{Алгоритми}
+% ------------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------------
+\chapter{Примене динамичких графова кроз примере}
+% ------------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------------
+\chapter{Закључак}
+% ------------------------------------------------------------------------------
+
+
+% ------------------------------------------------------------------------------
+% Literatura
+% ------------------------------------------------------------------------------
+\literatura
+
+% ==============================================================================
+% Završni deo teze i prilozi
+\backmatter
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% Biografija kandidata
+\begin{biografija}
+\textbf{Марко Лазаревић} рођен је 4. априла 2002. године у Фочи, Босна и Херцеговина. Основне студије завршио је 2025. године на смеру Инфроматика на Математичком факултету Универзитета у Београду, са просечном оценом 9.35. 
+\end{biografija}
+% ------------------------------------------------------------------------------
+
+\end{document} 

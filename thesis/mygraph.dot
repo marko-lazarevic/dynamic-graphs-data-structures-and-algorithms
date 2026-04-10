@@ -1,0 +1,9 @@
+digraph mygraph {
+ node [shape=circle, style="", fontname="Helvetica"]; edge [color=black, penwidth=1.5]; 
+edge [dir=none];
+a -> b;
+a -> c;
+b -> d;
+c -> d;
+d -> f;
+}

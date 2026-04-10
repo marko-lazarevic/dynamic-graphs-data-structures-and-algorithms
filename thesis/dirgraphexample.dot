@@ -1,0 +1,9 @@
+digraph dirgraphexample {
+edge [color=black];
+node [shape=circle];
+A -> B;
+A -> C;
+B -> C;
+C -> D;
+D -> E;
+}
