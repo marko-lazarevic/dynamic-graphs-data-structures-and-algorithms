@@ -41,7 +41,7 @@ namespace dg {
         vertices[vertex_id1].RemoveNeighbor(vertex_id2);
     }
 
-    void Graph::ChangeEdgeWeight(VertexID vertex_id1, VertexID vertex_id2, Weight new_weight) {
+    void Graph::UpdateEdgeWeight(VertexID vertex_id1, VertexID vertex_id2, Weight new_weight) {
         vertices[vertex_id1].ChangeWeight(vertex_id2, new_weight);
     }
 
@@ -51,5 +51,21 @@ namespace dg {
 
     Weight Graph::GetEdgeWeight(VertexID vertex_id1, VertexID vertex_id2) const {
         return vertices[vertex_id1].GetWeight(vertex_id2);
+    }
+
+    std::vector<Neighbor>::const_iterator Graph::NeighbourIterator(VertexID vertex_id) const {
+        return vertices[vertex_id].NeighbourIterator();
+    }
+
+    std::vector<Neighbor>::const_iterator Graph::NeighbourEndIterator(VertexID vertex_id) const {
+        return vertices[vertex_id].NeighbourEndIterator();
+    }
+
+    std::vector<Vertex>::const_iterator Graph::VertexIterator() const {
+        return vertices.cbegin();
+    }
+
+    std::vector<Vertex>::const_iterator Graph::VertexEndIterator() const {
+        return vertices.cend();
     }
 }// namespace dg

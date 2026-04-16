@@ -1,7 +1,9 @@
 #pragma once
 
+#include <cstdint>
+
 namespace dg{
-    using VertexID = int;
+    using VertexID = std::int32_t;
     using Weight = int;
 
     struct Neighbor {
@@ -18,5 +20,12 @@ namespace dg{
         DELETED = -2
     };
 
+    struct HashEntry {
+        unsigned index;
+        HashValue hash_value;
+
+        HashEntry() : index(-1), hash_value(EMPTY) {}
+        HashEntry(unsigned index, HashValue hash_value) : index(index), hash_value(hash_value) {}
+    };
 
 }// namespace dg

@@ -1,5 +1,5 @@
 #include "vertex.hpp"
-
+#include "hash_utils.hpp"
 namespace dg {
     Vertex::Vertex(VertexID id) : id(id), degree(0), beta(4) {
         neighbors.resize(beta);
@@ -7,7 +7,7 @@ namespace dg {
     }
 
     int Vertex::HashToSlot(VertexID neighbor_id) const {
-        return (neighbor_id & (beta - 1));
+        return hash_utils::hash64(neighbor_id)  & (beta - 1);
     }
 
     int Vertex::FindSlot(VertexID neighbor_id) const {
