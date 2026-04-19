@@ -1,9 +1,11 @@
 digraph dirgraphexample {
+rankdir=LR;
 edge [color=black];
 node [shape=circle];
-A -> B;
-A -> C;
-B -> C;
-C -> D;
-D -> E;
+A -> B [label=3];
+A -> C [label=2];
+B -> C [label=1];
+C -> D [label=4];
+C -> E [label=5];
+E -> A [label=6];
 }

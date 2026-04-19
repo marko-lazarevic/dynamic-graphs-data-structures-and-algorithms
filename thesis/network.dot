@@ -1,14 +1,14 @@
 digraph network {
 rankdir=LR;
-edge [dir=none, color=black];
-A [label=A, shape=box, style=filled, fillcolor=lightblue];
-B [label=B, shape=box, style=filled, fillcolor=lightblue];
+edge [dir=none, color=black, splines=line];
+A [label=A, shape=box3d, style=filled, fillcolor=lightblue];
+B [label=B, shape=box3d, style=filled, fillcolor=lightblue];
 r1 [label=R1, shape=circle];
-r2 [label=R2, shape=circle, style=filled, fillcolor=lightgray];
-r3 [label=R3, shape=circle, style=filled, fillcolor=lightgray];
-r4 [label=R4, shape=circle, style=filled, fillcolor=lightgray];
-r5 [label=R5, shape=circle, style=filled, fillcolor=lightgray];
-r6 [label=R6, shape=circle, style=filled, fillcolor=lightgray];
+r2 [label=R2, shape=circle];
+r3 [label=R3, shape=circle];
+r4 [label=R4, shape=circle];
+r5 [label=R5, shape=circle];
+r6 [label=R6, shape=circle];
 
 A -> r1 [label="10 Gbps"];
 

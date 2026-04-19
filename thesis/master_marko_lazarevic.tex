@@ -45,6 +45,7 @@
 % Ostali paketi koji se koriste u dokumentu
 \usepackage{listings} % listing programskog koda
 \usepackage[pdf]{graphviz} % crtanje grafova (pdflatex kompatibilno)
+\usepackage{amsfonts}
 
 \newcommand{\graphstyle}{
     node [shape=circle, style="", fontname="Helvetica"];
@@ -101,7 +102,7 @@
 % Strana sa posvetom (u odabranom pismu)
 \posveta{}
 % Strana sa podacima o disertaciji na srpskom jeziku
-\apstrakt{Динамички графови.}
+\apstrakt
 % Sadržaj teze
 \tableofcontents*
 
@@ -137,8 +138,24 @@
 \label{chp:staticki_i_dinamicki_grafovi}
 \input{chapters/staticki_i_dimanicki_grafovi.tex}
 % ------------------------------------------------------------------------------
-\chapter{Имплементација коришћењем Dynamic Hashed Blocks (DHB)}
+\chapter{Имплементацини модел и структура}
 % ------------------------------------------------------------------------------
+
+These frameworks often
+perform updates and queries concurrently, either via snapshots (simultaneous graph copies)
+or via batched updates. \cite{vandergrinten_et_al:LIPIcs.SEA.2022.11}
+
+ In general, there are two performance goals for dynamic graph algorithms. The
+first goal aims at maximizing update rates, while maintaining low memory utilization. The
+second one aims at accelerating graph analytics running on top of their graph structure. Most
+dynamic graph frameworks consider the first goal but ignore the second. \cite{vandergrinten_et_al:LIPIcs.SEA.2022.11}
+
+\section{Ограничења формалног модела}
+\section{Поједностављен модел}
+\section{DHB структура}
+\section{Операције и сложености}
+
+
 
 % ------------------------------------------------------------------------------
 \chapter{Алгоритми}

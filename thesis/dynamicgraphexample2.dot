@@ -1,0 +1,9 @@
+digraph dynamicgraphexample2 {
+rankdir=LR;
+edge [color=black];
+node [shape=circle];
+1 -> 2[color=green];
+2 -> 3[style=invis];
+1 -> 3[style=invis];
+3 -> 4[style=invis];
+}

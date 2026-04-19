@@ -1,4 +1,4 @@
-digraph graphexample {
+digraph graphexample2 {
 rankdir=LR;
 edge [dir=none, color=black];
 node [shape=circle];
@@ -6,6 +6,6 @@ A -> B;
 A -> C;
 B -> C;
 C -> D;
-C -> E;
+C -> E [style=invis];
 E -> A;
 }
