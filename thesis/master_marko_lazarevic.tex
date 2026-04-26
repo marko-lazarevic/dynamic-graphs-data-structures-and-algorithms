@@ -46,6 +46,33 @@
 \usepackage{listings} % listing programskog koda
 \usepackage[pdf]{graphviz} % crtanje grafova (pdflatex kompatibilno)
 \usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+% Lokalizacija naziva listing-a na ćirilicu
+\renewcommand{\lstlistingname}{Листинг}
+\renewcommand{\lstlistlistingname}{Списак листинга}
+
+% Stil za prikaz C++ koda u tezi
+\lstdefinestyle{thesiscpp}{
+  language=C++,
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\scriptsize,
+  stepnumber=1,
+  numbersep=8pt,
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  keepspaces=true,
+  columns=fullflexible,
+  tabsize=2
+}
+
+% Okruzenje za primere
+\theoremstyle{definition}
+\newtheorem{example}{Пример}
 
 \newcommand{\graphstyle}{
     node [shape=circle, style="", fontname="Helvetica"];
@@ -123,11 +150,8 @@
 \chapter{Увод}
 % ------------------------------------------------------------------------------
 
-У поглављу \ref{chp:motivacija} биће представљена мотивација за избор теме о динамичким графовима, као и њихова примена у различитим областима. У поглављу \ref{chp:staticki_i_dinamicki_grafovi} биће објашњени основни појмови везани за статичке и динамичке графове, као и различити типови динамичких графова. 
+У поглављу \ref{chp:staticki_i_dinamicki_grafovi} биће објашњени основни појмови везани за статичке и динамичке графове, као и различити типови динамичких графова. 
 
-% ------------------------------------------------------------------------------
-\chapter{Мотивација}
-\label{chp:motivacija}
 \input{chapters/motivacija.tex}
 % ------------------------------------------------------------------------------
 
@@ -141,25 +165,14 @@
 \chapter{Имплементацини модел и структура}
 % ------------------------------------------------------------------------------
 
-These frameworks often
-perform updates and queries concurrently, either via snapshots (simultaneous graph copies)
-or via batched updates. \cite{vandergrinten_et_al:LIPIcs.SEA.2022.11}
-
- In general, there are two performance goals for dynamic graph algorithms. The
-first goal aims at maximizing update rates, while maintaining low memory utilization. The
-second one aims at accelerating graph analytics running on top of their graph structure. Most
-dynamic graph frameworks consider the first goal but ignore the second. \cite{vandergrinten_et_al:LIPIcs.SEA.2022.11}
-
-\section{Ограничења формалног модела}
-\section{Поједностављен модел}
-\section{DHB структура}
-\section{Операције и сложености}
-
-
+\label{chp:implementacioni_model}
+\input{chapters/implementacioni_model.tex}
 
 % ------------------------------------------------------------------------------
 \chapter{Алгоритми}
 % ------------------------------------------------------------------------------
+
+\section{Динамичка повезаност}
 
 % ------------------------------------------------------------------------------
 \chapter{Примене динамичких графова кроз примере}
