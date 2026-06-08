@@ -1,7 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include "../../src/structs/vertex.hpp"
-#include "../../src/structs/graph.hpp"
 
 TEST_CASE("AddNeighbor stores id/weight and increments degree") {
 	dg::Vertex v(1);
@@ -122,19 +121,25 @@ TEST_CASE("Lots of neighbors") {
     }
 }
 
-TEST_CASE("RemoveVertex removes incoming and reindexes IDs") {
-	dg::Graph g;
-	g.AddVertex(); // 0
-	g.AddVertex(); // 1
-	g.AddVertex(); // 2
+TEST_CASE("SetId updates the stored identifier") {
+	dg::Vertex v(1);
 
-	g.AddEdge(0, 1, 5);
-	g.AddEdge(1, 2, 6);
-	g.AddEdge(2, 1, 7);
+	v.SetId(7);
 
-	g.RemoveVertex(1);
+	REQUIRE(v.Id() == 7);
+}
 
-	REQUIRE(g.VertexCount() == 2);
-	REQUIRE(!g.AreNeighbors(0, 1));
-	REQUIRE(!g.AreNeighbors(1, 0));
+TEST_CASE("RemapNeighborIdsAfterVertexRemoval removes the deleted vertex and shifts larger ids") {
+	dg::Vertex v(1);
+	v.AddNeighbor(1, 10);
+	v.AddNeighbor(3, 20);
+	v.AddNeighbor(4, 30);
+
+	v.RemapNeighborIdsAfterVertexRemoval(3);
+
+	REQUIRE(v.Degree() == 2);
+	REQUIRE(v.IsNeighbor(1));
+	REQUIRE(v.IsNeighbor(3));
+	REQUIRE(v.GetWeight(1) == 10);
+	REQUIRE(v.GetWeight(3) == 30);
 }
