@@ -47,3 +47,17 @@ target_include_directories(dynamic_connectivity_tests PRIVATE
 
 target_link_libraries(dynamic_connectivity_tests PRIVATE Catch2::Catch2)
 catch_discover_tests(dynamic_connectivity_tests)
+
+add_executable(dynamic_mst_tests
+    ../src/structs/vertex.cpp
+    ../src/structs/graph.cpp
+    ../src/algorithms/mst/dynamic_mst_incremental.cpp
+    unit/dynamic_mst_test.cpp
+)
+
+target_include_directories(dynamic_mst_tests PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+)
+
+target_link_libraries(dynamic_mst_tests PRIVATE Catch2::Catch2)
+catch_discover_tests(dynamic_mst_tests)
