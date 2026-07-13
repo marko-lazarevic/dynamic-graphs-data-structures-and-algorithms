@@ -34,6 +34,7 @@ namespace dynamic_connectivity {
 
     void DynamicConnectivityIncremental::AddEdge(dg::VertexID vertex_id1, dg::VertexID vertex_id2, dg::Weight weight) {
         graph.AddEdge(vertex_id1, vertex_id2, weight);
+        graph.AddEdge(vertex_id2, vertex_id1, weight);
         unite(vertex_id1, vertex_id2);
     }
 
@@ -43,6 +44,7 @@ namespace dynamic_connectivity {
 
     void DynamicConnectivityIncremental::UpdateEdgeWeight(dg::VertexID vertex_id1, dg::VertexID vertex_id2, dg::Weight new_weight) {
         graph.UpdateEdgeWeight(vertex_id1, vertex_id2, new_weight);
+        graph.UpdateEdgeWeight(vertex_id2, vertex_id1, new_weight);
     }
 
     bool DynamicConnectivityIncremental::IsConnected(dg::VertexID vertex_id1, dg::VertexID vertex_id2) {
