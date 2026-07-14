@@ -34,7 +34,7 @@ namespace dg {
     }
 
     void Graph::AddEdge(VertexID vertex_id1, VertexID vertex_id2, Weight weight) {
-        vertices[vertex_id1].AddNeighbor(vertex_id2, weight);
+        vertices[vertex_id1].AddNeighbor(vertex_id2, weight, edges_sorted_by_weight);
     }
 
     void Graph::RemoveEdge(VertexID vertex_id1, VertexID vertex_id2) {

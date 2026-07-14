@@ -5,7 +5,8 @@
 namespace dg {
     class Graph {
     public:
-        Graph() = default;
+        explicit Graph(bool edges_sorted_by_weight = false) 
+            : vertex_count(0), edges_sorted_by_weight(edges_sorted_by_weight) {}
 
         int VertexCount() const;
         VertexID AddVertex();
@@ -23,8 +24,9 @@ namespace dg {
         std::vector<Neighbor>::const_iterator NeighbourEndIterator(VertexID vertex_id) const;
 
     private:
-        std::vector<Vertex> vertices;
         int vertex_count = 0;
+        std::vector<Vertex> vertices;
+        bool edges_sorted_by_weight = false;
 
     };
 }

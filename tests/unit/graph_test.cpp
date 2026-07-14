@@ -60,3 +60,31 @@ TEST_CASE("RemoveVertex deletes incident edges and reindexes remaining vertices"
 	REQUIRE(!g.AreNeighbors(1, 0));
 	REQUIRE(g.NeighbourIterator(0) == g.NeighbourEndIterator(0));
 }
+
+TEST_CASE("AddEdge respects Graph edges_sorted_by_weight flag") {
+	// default (not sorted)
+	dg::Graph g1;
+	g1.AddVertex(); // 0
+	g1.AddVertex(); // 1
+	g1.AddVertex(); // 2
+
+	g1.AddEdge(0, 1, 5);
+	g1.AddEdge(0, 2, 1);
+
+	auto it1 = g1.NeighbourIterator(0);
+	REQUIRE((it1 + 0)->vertex_id == 1);
+	REQUIRE((it1 + 1)->vertex_id == 2);
+
+	// sorted by weight
+	dg::Graph g2(true);
+	g2.AddVertex(); // 0
+	g2.AddVertex(); // 1
+	g2.AddVertex(); // 2
+
+	g2.AddEdge(0, 1, 5);
+	g2.AddEdge(0, 2, 1);
+
+	auto it2 = g2.NeighbourIterator(0);
+	REQUIRE((it2 + 0)->vertex_id == 2);
+	REQUIRE((it2 + 1)->vertex_id == 1);
+}

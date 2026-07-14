@@ -100,11 +100,11 @@ namespace dg {
         return beta;
     }
 
-    void Vertex::AddNeighbor(VertexID neighbor_id, Weight weight) {
+    void Vertex::AddNeighbor(VertexID neighbor_id, Weight weight, bool keep_sorted_by_weight) {
         if (neighbor_id < 0) {
             return;
         }
-
+        
         bool already_present = false;
         FindInsertSlot(neighbor_id, already_present);
         if (already_present) {
@@ -114,7 +114,6 @@ namespace dg {
         if (degree >= beta / 2) {
             GrowAndRehash();
         }
-
         int insert_slot = FindInsertSlot(neighbor_id, already_present);
         if (insert_slot < 0 || already_present) {
             return;
@@ -123,6 +122,15 @@ namespace dg {
         neighbors[degree] = Neighbor(neighbor_id, weight);
         hashes[insert_slot] = HashEntry(degree, OCCUPIED);
         degree++;
+
+        if (keep_sorted_by_weight) {
+            std::sort(neighbors.begin(), neighbors.begin() + degree, 
+                      [](const Neighbor& a, const Neighbor& b) {
+                          return a.weight < b.weight;
+                      });
+            RebuildHashIndex();
+        }
+
     }
 
     void Vertex::ChangeWeight(VertexID neighbor_id, Weight new_weight) {

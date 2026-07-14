@@ -29,7 +29,7 @@ namespace dg {
         int Degree() const;
         int Beta() const;
 
-        void AddNeighbor(VertexID neighbor_id, Weight weight = 1);
+        void AddNeighbor(VertexID neighbor_id, Weight weight = 1, bool keep_sorted_by_weight = false);
         void ChangeWeight(VertexID neighbor_id, Weight new_weight);
         void RemoveNeighbor(VertexID neighbor_id, bool preserve_order = false);
         bool IsNeighbor(VertexID neighbor_id) const;

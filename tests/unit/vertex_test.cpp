@@ -143,3 +143,25 @@ TEST_CASE("RemapNeighborIdsAfterVertexRemoval removes the deleted vertex and shi
 	REQUIRE(v.GetWeight(1) == 10);
 	REQUIRE(v.GetWeight(3) == 30);
 }
+
+TEST_CASE("AddNeighbor respects keep_sorted_by_weight flag on Vertex") {
+	dg::Vertex v1(1);
+	v1.AddNeighbor(2, 4);
+	v1.AddNeighbor(3, 10);
+	v1.AddNeighbor(4, 1);
+
+	auto it1 = v1.NeighbourIterator();
+	REQUIRE((it1 + 0)->vertex_id == 2);
+	REQUIRE((it1 + 1)->vertex_id == 3);
+	REQUIRE((it1 + 2)->vertex_id == 4);
+
+	dg::Vertex v2(2);
+	v2.AddNeighbor(2, 4, true);
+	v2.AddNeighbor(3, 10, true);
+	v2.AddNeighbor(4, 1, true);
+
+	auto it2 = v2.NeighbourIterator();
+	REQUIRE((it2 + 0)->vertex_id == 4);
+	REQUIRE((it2 + 1)->vertex_id == 2);
+	REQUIRE((it2 + 2)->vertex_id == 3);
+}
