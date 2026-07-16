@@ -61,3 +61,17 @@ target_include_directories(dynamic_mst_tests PRIVATE
 
 target_link_libraries(dynamic_mst_tests PRIVATE Catch2::Catch2)
 catch_discover_tests(dynamic_mst_tests)
+
+add_executable(suitor_tests
+    ../src/structs/vertex.cpp
+    ../src/structs/graph.cpp
+    ../src/algorithms/suitor/suitor_matching.cpp
+    unit/suitor_test.cpp
+)
+
+target_include_directories(suitor_tests PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+)
+
+target_link_libraries(suitor_tests PRIVATE Catch2::Catch2)
+catch_discover_tests(suitor_tests)
