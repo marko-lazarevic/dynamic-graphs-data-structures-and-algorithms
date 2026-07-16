@@ -1,4 +1,6 @@
 #include "dynamic_mst_incremental.hpp"
+#include <algorithm>
+#include <queue>
 
 namespace dynamic_mst {
 
@@ -34,48 +36,62 @@ namespace dynamic_mst {
         return vertex_id;
     }
 
+    struct HeapEntry {
+        dg::VertexID u;
+        std::vector<dg::Neighbor>::const_iterator current;
+        std::vector<dg::Neighbor>::const_iterator end;
+
+        bool operator>(const HeapEntry& other) const {
+            return current->weight > other.current->weight;
+        }
+    };
+
     void DynamicMSTIncremental::rebuildMST() {
         mst_edges.clear();
         mst_weight = 0;
 
-        std::vector<Edge> edges;
+        int n = graph.VertexCount();
+        if (n <= 1) return;
 
-        for (auto it = graph.VertexIterator();
-            it != graph.VertexEndIterator();
-            ++it)
-        {
-            dg::VertexID u = it->Id();
-
-            for (auto nit = graph.NeighbourIterator(u);
-                nit != graph.NeighbourEndIterator(u);
-                ++nit)
-            {
-                dg::VertexID v = nit->vertex_id;
-
-                if (u < v) {
-                    edges.push_back({u, v, nit->weight});
-                }
-            }
-        }
-
-        std::sort(edges.begin(), edges.end(),
-                [](const Edge& a, const Edge& b) {
-                    return a.w < b.w;
-                });
-
-        parent.resize(graph.VertexCount());
-        rank.resize(graph.VertexCount());
-
-        for (int i = 0; i < graph.VertexCount(); i++)
-        {
+        parent.resize(n);
+        rank.resize(n);
+        for (int i = 0; i < n; i++) {
             parent[i] = i;
             rank[i] = 0;
         }
 
-        for (const auto& e : edges) {
-            if (unite(e.u, e.v)) {
-                mst_edges.push_back(e);
-                mst_weight += e.w;
+        std::priority_queue<HeapEntry, std::vector<HeapEntry>, std::greater<HeapEntry>> min_heap;
+
+        for (int u = 0; u < n; ++u) {
+            auto it = graph.NeighbourIterator(u);
+            auto end = graph.NeighbourEndIterator(u);
+            if (it != end) {
+                min_heap.push({static_cast<dg::VertexID>(u), it, end});
+            }
+        }
+
+        int edges_added = 0;
+        int target_edges = n - 1;
+
+        while (!min_heap.empty() && edges_added < target_edges) {
+            HeapEntry top = min_heap.top();
+            min_heap.pop();
+
+            dg::VertexID u = top.u;
+            dg::VertexID v = top.current->vertex_id;
+            dg::Weight w = top.current->weight;
+
+            if (u < v) {
+                if (unite(u, v)) {
+                    mst_edges.push_back({u, v, w});
+                    mst_weight += w;
+                    edges_added++;
+                }
+            }
+
+            auto next_it = top.current + 1;
+            if (next_it != top.end) {
+                min_heap.push({u, next_it, top.end});
             }
         }
     }
@@ -85,6 +101,7 @@ namespace dynamic_mst {
                                         dg::Weight w)
     {
         graph.AddEdge(u, v, w);
+        graph.AddEdge(v, u, w);
         rebuildMST();
     }
 
@@ -93,10 +110,17 @@ namespace dynamic_mst {
     }
 
     void DynamicMSTIncremental::UpdateEdgeWeight(dg::VertexID u,
-                                                dg::VertexID v,
-                                                dg::Weight new_w)
+                                                 dg::VertexID v,
+                                                 dg::Weight new_w)
     {
         graph.UpdateEdgeWeight(u, v, new_w);
+        graph.UpdateEdgeWeight(v, u, new_w);
+
+        graph.RemoveEdge(u, v);
+        graph.RemoveEdge(v, u);
+        graph.AddEdge(u, v, new_w);
+        graph.AddEdge(v, u, new_w);
+
         rebuildMST();
     }
 

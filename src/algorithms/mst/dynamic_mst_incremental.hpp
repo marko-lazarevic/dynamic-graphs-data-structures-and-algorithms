@@ -29,7 +29,7 @@ namespace dynamic_mst {
         void rebuildMST();
 
     public:
-        DynamicMSTIncremental() = default;
+        DynamicMSTIncremental() : graph(true), mst_weight(0) {}
 
         int VertexCount() const;
         dg::VertexID AddVertex();
