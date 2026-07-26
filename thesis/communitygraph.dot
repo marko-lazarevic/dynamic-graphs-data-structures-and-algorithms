@@ -1,0 +1,38 @@
+digraph communitygraph {
+node [shape=circle];
+edge [dir=none];
+
+subgraph cluster_A {
+style=filled;
+color=lightgrey;
+
+A1 -> A3;
+A2 -> A3;
+A3 -> A4;
+A4 -> A1;
+A1 -> A3;
+}
+
+subgraph cluster_B {
+style=filled;
+color=lightblue;
+B1 -> B2;
+B2 -> B3;
+B3 -> B4;
+B1 -> B4;
+B2 -> B4;
+}
+
+subgraph cluster_C {
+style=filled;
+color=lightyellow;
+C1 -> C2;
+C2 -> C3;
+C4 -> C1;
+C2 -> C4;
+}
+
+A4 -> B1;
+B4 -> C2 [constraint=false];
+A2 -> C3 [constraint=false];
+}
