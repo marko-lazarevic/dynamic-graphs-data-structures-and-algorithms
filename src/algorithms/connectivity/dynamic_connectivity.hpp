@@ -10,7 +10,7 @@ namespace dynamic_connectivity {
         std::vector<int> rank;
 
         int find(int x);
-        void unite(int a, int b);
+        void union_(int a, int b);
 
     public:
         DynamicConnectivityIncremental() = default;

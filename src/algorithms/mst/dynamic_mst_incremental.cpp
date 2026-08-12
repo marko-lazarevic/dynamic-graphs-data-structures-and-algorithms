@@ -11,7 +11,7 @@ namespace dynamic_mst {
         return parent[x];
     }
 
-    bool DynamicMSTIncremental::unite(int a, int b) {
+    bool DynamicMSTIncremental::union_(int a, int b) {
         a = find(a);
         b = find(b);
         if (a == -1 || b == -1) return false;
@@ -82,7 +82,7 @@ namespace dynamic_mst {
             dg::Weight w = top.current->weight;
 
             if (u < v) {
-                if (unite(u, v)) {
+                if (union_(u, v)) {
                     mst_edges.push_back({u, v, w});
                     mst_weight += w;
                     edges_added++;

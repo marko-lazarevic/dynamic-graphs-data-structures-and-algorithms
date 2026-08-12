@@ -19,7 +19,7 @@ namespace dynamic_connectivity {
         return parent[x];
     }
 
-    void DynamicConnectivityIncremental::unite(int a, int b) {
+    void DynamicConnectivityIncremental::union_(int a, int b) {
         int ra = find(a);
         int rb = find(b);
         if (ra == -1 || rb == -1) return;
@@ -35,7 +35,7 @@ namespace dynamic_connectivity {
     void DynamicConnectivityIncremental::AddEdge(dg::VertexID vertex_id1, dg::VertexID vertex_id2, dg::Weight weight) {
         graph.AddEdge(vertex_id1, vertex_id2, weight);
         graph.AddEdge(vertex_id2, vertex_id1, weight);
-        unite(vertex_id1, vertex_id2);
+        union_(vertex_id1, vertex_id2);
     }
 
     dg::Weight DynamicConnectivityIncremental::GetEdgeWeight(dg::VertexID vertex_id1, dg::VertexID vertex_id2) const {

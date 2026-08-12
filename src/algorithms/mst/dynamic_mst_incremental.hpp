@@ -24,7 +24,7 @@ namespace dynamic_mst {
         dg::Weight mst_weight = 0;
 
         int find(int x);
-        bool unite(int a, int b);
+        bool union_(int a, int b);
 
         void rebuildMST();
 
