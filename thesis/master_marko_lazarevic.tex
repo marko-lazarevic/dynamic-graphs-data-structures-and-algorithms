@@ -44,6 +44,7 @@
 
 % Ostali paketi koji se koriste u dokumentu
 \usepackage{listings} % listing programskog koda
+\usepackage{xcolor} % boje za syntax highlighting
 \usepackage[pdf]{graphviz} % crtanje grafova (pdflatex kompatibilno)
 \usepackage{amsfonts}
 \usepackage{amsthm}
@@ -60,20 +61,36 @@
 \renewcommand{\lstlistlistingname}{Списак листинга}
 
 % Stil za prikaz C++ koda u tezi
+% Дефиниција професионалне палете (Solarized / VS Code инспирисано)
+\definecolor{codeblue}{RGB}{0, 102, 204}       % Кључне речи (умерена плава)
+\definecolor{codegreen}{RGB}{46, 139, 87}      % Ниске (морско зелена)
+\definecolor{codegray}{RGB}{120, 120, 120}     % Коментари и бројеви
+\definecolor{codepurple}{RGB}{128, 0, 128}     % Специјални типови / Препроцесор
+\definecolor{backcolour}{RGB}{250, 250, 250}   % Благо сива позадина за фрејм
+
 \lstdefinestyle{thesiscpp}{
   language=C++,
   basicstyle=\ttfamily\small,
   numbers=left,
-  numberstyle=\scriptsize,
+  numberstyle=\tiny\color{codegray},
   stepnumber=1,
   numbersep=8pt,
   frame=single,
+  rulecolor=\color{codegray!30},
+  backgroundcolor=\color{backcolour},
   breaklines=true,
   breakatwhitespace=true,
   showstringspaces=false,
   keepspaces=true,
   columns=fullflexible,
-  tabsize=2
+  tabsize=2,
+  keywordstyle=\color{codeblue}\bfseries,
+  commentstyle=\color{codegray}\itshape,
+  stringstyle=\color{codegreen},
+  identifierstyle=\color{black},
+  % Додатна подешавања за C++ препроцесор и директиве
+  directivestyle=\color{codepurple}\bfseries,
+  morekeywords={std, vector, uint32_t, uint64_t, size_t, auto} % Додавање савремених C++ типова
 }
 
 % Okruzenje za primere
@@ -117,7 +134,7 @@
 
 % Apstrakt na srpskom jeziku (u odabranom pismu)
 \apstr{%
-Графови представљају једну од основних структура података у рачунарству. Једноставност ове апстрактне структуре омогућава велику изражајност и погодност за моделовање различитих система, од различитих типова мрежа и мапа до комплексних односа међу објектима. Међутим, већина реалних система подразумева континуиране промене током времена, где се чворови и гране често додају, уклањају или мењају. Овакви системи захтевају проширење традиционалног статичког посматрања графова. 
+Графови представљају једну од основних структура података у рачунарству. Једноставност ове апстрактне структуре омогућава велику изражајност и погодност за моделовање различитих система, од бројних типова мрежа и мапа до комплексних односа међу објектима. Међутим, већина реалних система подразумева континуиране промене током времена, где се чворови и гране често додају, уклањају или мењају. Овакви системи захтевају проширење традиционалног статичког посматрања графова. 
 
 У овом раду разматра се проблем ефикасне обраде и управљања динамичким графовима, са циљем проналажења ефикасних решења за проблеме који настају у оваквим променљивим окружењима. Тежиште рада стављено је на структуру хеш-индексираних блокова суседства (енгл. \textit{Dynamic Hashed Blocks} -- DHB), која успешно спаја добре особине низова и хеш-табела. Додатно, у раду је приказана имплементација \texttt{C++} библиотеке засноване на DHB структури и њена успешна адаптација за решавање фундаменталних графовских проблема у динамичким условима, као што су утврђивање повезаности, конструкција динамичког минималног разапињућег стабла и одређивање максималног упаривања. Поред теоријске и имплементационе анализе, у раду је кроз репрезентативне примере показано да динамички графови нису само апстрактни концепт, већ да постоји реална и све већа потреба за њиховом применом, како у научним тако и у индустријским окружењима.
 }

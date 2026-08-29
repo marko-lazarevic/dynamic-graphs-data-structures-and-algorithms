@@ -32,7 +32,7 @@ C4 -> C1;
 C2 -> C4;
 }
 
-A4 -> B1;
+A4 -> B1 [constraint=false];
 B4 -> C2 [constraint=false];
 A2 -> C3 [constraint=false];
 }
